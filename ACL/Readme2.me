@@ -1,0 +1,18 @@
+HR, Sales, R1, R2, Server1, Server2
+OSPF routing
+Hr--> server2
+Sales--> server1
+R2:
+R2(config)#ip access-list standard sales_accept
+R2(config-std-nacl)#permit 10.1.10.0 0.0.0.255
+R2(config-std-nacl)#deny any
+
+R2(config-std-nacl)#ip access-list standard HR_accept
+R2(config-std-nacl)#permit 10.1.20.0 0.0.0.255
+R2(config-std-nacl)#deny any
+
+R2(config-std-nacl)#interface g0/1
+R2(config-if)#ip access-group sales_accept out
+
+R2(config-if)#interface g0/2
+R2(config-if)#ip access-group HR_accept out
